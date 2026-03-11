@@ -1,0 +1,35 @@
+# Ігнорування файлів та папок для C++ проекту
+*.o
+*.obj
+*.a
+*.lib
+
+# Виконувані файли
+*.exe
+*.out
+*.app
+*.bat
+
+# Папки IDE та редакторів
+.vscode/
+.idea/
+.vs/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# Папки збірки
+build/
+cmake-build-*/
+Debug/
+Release/
+
+# Системні файли
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Файли залежностей
+*.d
+*.su
