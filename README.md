@@ -26,17 +26,17 @@
 
 ### На Windows (MSVC)
 ```bash
-cl /EHsc main.cpp sort.cpp test.cpp /o program.exe
+cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp /Fe:program.exe
 ```
 
 ### На Windows (MinGW/GCC)
 ```bash
-g++ -o program.exe main.cpp sort.cpp test.cpp
+g++ -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp
 ```
 
 ### На Linux/macOS (GCC/Clang)
 ```bash
-g++ -o program main.cpp sort.cpp test.cpp
+g++ -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp
 ```
 
 ## Запуск

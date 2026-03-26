@@ -15,6 +15,7 @@
 #include <iomanip>
 #include <thread>
 #include <chrono>
+#include "../MyLib.h"
 
 using namespace std;
 
@@ -25,19 +26,8 @@ string colors[] = {
     "\033[1;91m", "\033[1;92m", "\033[1;93m"
 };
 
-string resetColor = "\033[0m";
 string highlight = "\033[41m";
 string menuColor = "\033[96m"; 
-int visualizationDelay = 300;  
-
-// ===== ЛОГИ =====
-void Log(string item) { cout << resetColor << item << resetColor << endl; }
-void LogSuccess(string item) { cout << "\033[42m" << item << resetColor << endl; }
-void LogError(string item) { cout << "\033[41m" << item << resetColor << endl; }
-void Delay() { std::this_thread::sleep_for(std::chrono::milliseconds(visualizationDelay)); }
-
-// ===== ВІЗУАЛІЗАЦІЯ =====
-void ClearScreen() { cout << "\033[2J\033[1;1H"; }
 
 void PrintArray(vector<int>& a, int idx1, int idx2)
 {

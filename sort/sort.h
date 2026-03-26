@@ -6,19 +6,10 @@
 
 // ===== ГЛОБАЛЬНІ ЗМІННІ =====
 extern std::string colors[];
-extern std::string resetColor;
 extern std::string highlight;
 extern std::string menuColor;
-extern int visualizationDelay;
 
 // ===== ФУНКЦІЇ =====
-void Log(std::string item);
-void LogSuccess(std::string item);
-void LogError(std::string item);
-
-void Delay();
-void ClearScreen();
-
 void PrintArray(std::vector<int>& a, int idx1 = -1, int idx2 = -1);
 
 std::vector<int> InputArray();
