@@ -54,28 +54,3 @@ void RunTest(int arraySize) {
     cout << "Shaker Sort      | " << t7 << "\n";
     cout << "Heap Sort        | " << t8 << "\n";
 }
-
-int test() {
-    vector<int> arr = { 5, 2, -3, 10, 8, 1, 7, -4, 3 };
-    
-    cout << "Масив для сортування: ";
-    for (int num : arr) {
-        cout << num << " ";
-    }
-    cout << endl;
-
-    double t1 = TestSortingAlgorithm(1, arr);
-    double t2 = TestSortingAlgorithm(2, arr);
-    double t3 = TestSortingAlgorithm(3, arr);
-    double t4 = TestSortingAlgorithm(4, arr);
-
-    cout << "\nРЕЗУЛЬТАТИ ТЕСТУ:\n";
-    cout << "Алгоритм         | Час (сек)\n";
-    cout << "-----------------|-----------\n";
-    cout << "Selection Sort   | " << t1 << "\n";
-    cout << "Insertion Sort   | " << t2 << "\n";
-    cout << "Bubble Sort      | " << t3 << "\n";
-    cout << "Merge Sort       | " << t4 << "\n";
-
-    return 0;
-}

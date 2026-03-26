@@ -147,8 +147,13 @@ void SelectionSort(vector<int> a, bool visualize, bool ascending)
         }
     }
 
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (n <= 200) 
+    {
+        LogSuccess("Відсортовано SelectionSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано SelectionSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== INSERTION SORT =====
@@ -192,8 +197,13 @@ void InsertionSort(vector<int> a, bool visualize, bool ascending)
         }
     }
 
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (n <= 200) 
+    {
+        LogSuccess("Відсортовано InsertionSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано InsertionSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== BUBBLE SORT =====
@@ -231,8 +241,13 @@ void BubbleSort(vector<int> a, bool visualize, bool ascending)
             break;
     }
 
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (n <= 200) 
+    {
+        LogSuccess("Відсортовано BubbleSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано BubbleSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== MERGE SORT =====
@@ -279,8 +294,13 @@ void MergeSortRec(vector<int>& a, int left, int right, bool visualize, bool asce
 void MergeSort(vector<int> a, bool visualize, bool ascending)
 {
     MergeSortRec(a, 0, a.size() - 1, visualize, ascending);
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (a.size() <= 200) 
+    {
+        LogSuccess("Відсортовано MergeSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано MergeSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== QUICK SORT =====
@@ -319,8 +339,13 @@ void QuickSortRec(vector<int>& a, int low, int high, bool visualize, bool ascend
 void QuickSort(vector<int> a, bool visualize, bool ascending)
 {
     QuickSortRec(a, 0, a.size() - 1, visualize, ascending);
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (a.size() <= 200) 
+    {
+        LogSuccess("Відсортовано QuickSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано QuickSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== SHELL SORT =====
@@ -348,8 +373,13 @@ void ShellSort(vector<int> a, bool visualize, bool ascending)
             }
         }
     }
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (n <= 200) 
+    {
+        LogSuccess("Відсортовано ShellSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано ShellSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== SHAKER SORT =====
@@ -392,8 +422,13 @@ void ShakerSort(vector<int> a, bool visualize, bool ascending)
         left++;
     } while (swapped);
     
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (n <= 200) 
+    {
+        LogSuccess("Відсортовано ShakerSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано ShakerSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== HEAP SORT =====
@@ -448,8 +483,13 @@ void HeapSort(vector<int> a, bool visualize, bool ascending)
         Heapify(a, i, 0, visualize, ascending);
     }
     
-    LogSuccess("Відсортовано:");
-    PrintArray(a);
+    if (n <= 200) 
+    {
+        LogSuccess("Відсортовано HeapSort():");
+        PrintArray(a);
+    } else {
+        LogSuccess("Відсортовано HeapSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
+    }
 }
 
 // ===== МЕНЮ =====

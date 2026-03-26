@@ -5,6 +5,5 @@
 
 double TestSortingAlgorithm(int algorithmType, std::vector<int> arr);
 void RunTest(int arraySize);
-int test();
 
 #endif
