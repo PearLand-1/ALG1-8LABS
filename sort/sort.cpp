@@ -19,87 +19,6 @@
 
 using namespace std;
 
-// ===== КОЛЬОРИ =====
-string colors[] = {
-    "\033[1;31m", "\033[1;32m", "\033[1;33m",
-    "\033[1;34m", "\033[1;35m", "\033[1;36m",
-    "\033[1;91m", "\033[1;92m", "\033[1;93m"
-};
-
-string highlight = "\033[41m";
-string menuColor = "\033[96m"; 
-
-void PrintArray(vector<int>& a, int idx1, int idx2)
-{
-    cout << "\033[?25l";  
-    cout << "\033[2J\033[1;1H";
-    for (int i = 0; i < a.size(); i++)
-    {
-        if (i == idx1 || i == idx2) cout << highlight;
-        cout << colors[i % 9] << setw(4) << a[i] << resetColor << " ";
-    }
-    cout << endl;
-    Delay();
-    cout << "\033[?25h";
-}
-
-
-// =================== ВВЕДЕННЯ ===================
-vector<int> InputArray()
-{
-    int n;
-
-    cout << "\nВведення масиву вручну\n";
-    cout << "------------------------\n";
-
-    cout << "Розмір масиву (кількість елементів): ";
-    cin >> n;
-
-    while (n <= 0)
-    {
-        cout << "Розмір повинен бути більше 0. Спробуйте ще раз: ";
-        cin >> n;
-    }
-
-    vector<int> arr(n);
-
-    cout << "\nТепер введіть " << n << " цілих чисел.\n";
-    cout << "Вводити потрібно В ОДИН РЯДОК через пробіл.\n";
-    cout << "Приклад: 5 2 -3 10 8\n\n";
-    cout << "Ваш ввод: ";
-
-    for (int i = 0; i < n; i++)
-    {
-        while (!(cin >> arr[i]))
-        {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cout << "Помилка! Введіть ЦІЛЕ число: ";
-        }
-    }
-
-    cout << "\nМасив успішно зчитано!\n";
-
-    return arr;
-}
-
-vector<int> RandomArray()
-{
-    int n, minVal, maxVal;
-    cout << "Розмір масиву: ";
-    cin >> n;
-    cout << "Мінімальне значення: ";
-    cin >> minVal;
-    cout << "Максимальне значення: ";
-    cin >> maxVal;
-
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++)
-        arr[i] = minVal + rand() % (maxVal - minVal + 1);
-
-    return arr;
-}
-
 // ===== SELECTION SORT =====
 void SelectionSort(vector<int> a, bool visualize, bool ascending)
 {
@@ -132,7 +51,7 @@ void SelectionSort(vector<int> a, bool visualize, bool ascending)
         } else {
             if (visualize) {
                 Log("Без змін (обміну не було):");
-                PrintArray(a);
+                PrintArray(a, -1, -1);
             }
         }
     }
@@ -140,7 +59,7 @@ void SelectionSort(vector<int> a, bool visualize, bool ascending)
     if (n <= 200) 
     {
         LogSuccess("Відсортовано SelectionSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано SelectionSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -183,14 +102,14 @@ void InsertionSort(vector<int> a, bool visualize, bool ascending)
 
         if (!swapped && visualize) {
             Log("Без змін (зсувів не було):");
-            PrintArray(a);
+            PrintArray(a, -1, -1);
         }
     }
 
     if (n <= 200) 
     {
         LogSuccess("Відсортовано InsertionSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано InsertionSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -224,7 +143,7 @@ void BubbleSort(vector<int> a, bool visualize, bool ascending)
         if (!swapped && visualize)
         {
             Log("Без змін (обміну не було):");
-            PrintArray(a);
+            PrintArray(a, -1, -1);
         }
 
         if (!swapped)
@@ -234,7 +153,7 @@ void BubbleSort(vector<int> a, bool visualize, bool ascending)
     if (n <= 200) 
     {
         LogSuccess("Відсортовано BubbleSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано BubbleSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -266,7 +185,7 @@ void Merge(vector<int>& a, int left, int mid, int right, bool visualize, bool as
 
     // Візуалізація після кожного злиття
     if (visualize)
-        PrintArray(a);
+        PrintArray(a, -1, -1);
 }
 
 void MergeSortRec(vector<int>& a, int left, int right, bool visualize, bool ascending)
@@ -287,7 +206,7 @@ void MergeSort(vector<int> a, bool visualize, bool ascending)
     if (a.size() <= 200) 
     {
         LogSuccess("Відсортовано MergeSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано MergeSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -332,7 +251,7 @@ void QuickSort(vector<int> a, bool visualize, bool ascending)
     if (a.size() <= 200) 
     {
         LogSuccess("Відсортовано QuickSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано QuickSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -366,7 +285,7 @@ void ShellSort(vector<int> a, bool visualize, bool ascending)
     if (n <= 200) 
     {
         LogSuccess("Відсортовано ShellSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано ShellSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -415,7 +334,7 @@ void ShakerSort(vector<int> a, bool visualize, bool ascending)
     if (n <= 200) 
     {
         LogSuccess("Відсортовано ShakerSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано ShakerSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -456,7 +375,7 @@ void HeapSort(vector<int> a, bool visualize, bool ascending)
     for (int i = n / 2 - 1; i >= 0; i--) {
         if (visualize) {
             Log("Побудова купи:");
-            PrintArray(a);
+            PrintArray(a, -1, -1);
         }
         Heapify(a, n, i, visualize, ascending);
     }
@@ -476,7 +395,7 @@ void HeapSort(vector<int> a, bool visualize, bool ascending)
     if (n <= 200) 
     {
         LogSuccess("Відсортовано HeapSort():");
-        PrintArray(a);
+        PrintArray(a, -1, -1);
     } else {
         LogSuccess("Відсортовано HeapSort().\nРозмір масиву перевищує 200, результат не відображатиметься");
     }
@@ -487,26 +406,25 @@ void HeapSort(vector<int> a, bool visualize, bool ascending)
 void RunAlgorithm(int type)
 {
     bool visualize;
-    cout << "Візуалізувати? (1 - так, 0 - ні): ";
+    Log("<cyan>Візуалізувати? 1 - так, 0 - ні\n>> </cyan>");
     cin >> visualize;
     
     if (visualize)
     {
-        cout << "Затримка (мс, рекомендовано 100-1000): ";
+        Log("<cyan>Затримка (мс, рекомендовано 100-1000)\n>> </cyan>");
         cin >> visualizationDelay;
     }
 
     int orderChoice;
-    cout << "\nПорядок сортування:\n";
-    cout << "1 - За зростанням\n";
-    cout << "2 - За спаданням\n";
-    cout << "Ваш вибір: ";
+    Log("<cyan>Порядок сортування:</cyan>");
+    Log("<cyan>1 - За зростанням</cyan>");
+    Log("<cyan>2 - За спаданням\n>> </cyan>");
     cin >> orderChoice;
 
     bool ascending = (orderChoice == 1);
 
     int inputType;
-    cout << "\n1 - Ввести вручну\n2 - Випадкові значення\nВаш вибір: ";
+    Log("<cyan>1 - Ввести вручну\n2 - Випадкові значення\n>> </cyan>");
     cin >> inputType;
 
     vector<int> arr;
@@ -517,7 +435,7 @@ void RunAlgorithm(int type)
         arr = RandomArray();
 
     Log("Початковий масив:");
-    PrintArray(arr);
+    PrintArray(arr, -1, -1);
 
     switch (type)
     {

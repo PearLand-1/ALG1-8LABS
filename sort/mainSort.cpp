@@ -7,13 +7,6 @@
  ======================================================= */
 
 #include <iostream>
-#include <vector>
-#include <ctime>
-#include <cstdlib>
-#include <string>
-#include <iomanip>
-#include <thread>
-#include <chrono>
 #include <windows.h>
 #include "sort.h"
 #include "../MyLib.h"
@@ -29,20 +22,42 @@ int SortMenu()
 
     while (run)
     {
-        cout << menuColor
-             << "\n=== МЕНЮ СОРТУВАННЯ ===\n"
-             << "1 - Selection Sort\n"
-             << "2 - Insertion Sort\n"
-             << "3 - Bubble Sort\n"
-             << "4 - Merge Sort\n"
-             << "5 - Quick Sort\n"
-             << "6 - Shell Sort\n"
-             << "7 - Shaker Sort\n"
-             << "8 - Heap Sort\n"
-             << "9 - Тестувати всі сортування (виміряти час)\n"
-             << "0 - Вихiд\n"
-             << "Ваш вибiр: "
-             << resetColor;
+        cout << FromCustomFormatToString(R"(<magenta><i><u>Лабораторні роботи 1 - 8</u></i></magenta>
+<b>Виконав:</b> <i>Чорноус Сергій ІПЗ-22</i>
+<cyan>Обрати дію
+
+    1 - Selection Sort
+    <i>--- Сортування вибором</i>
+
+    2 - Insertion Sort
+    <i>--- Сортування включенням</i>
+
+    3 - Bubble Sort
+    <i>--- Сортування бульбашкою</i>
+
+    4 - Merge Sort
+    <i>--- Сортування злиттям</i>
+
+    5 - Quick Sort
+    <i>--- Швидке сортування</i>
+
+    6 - Shell Sort
+    <i>--- Сортування Шелла</i>
+
+    7 - Shaker Sort
+    <i>--- Шейкерне сортування</i>
+
+    8 - Heap Sort
+    <i>--- Сортування купою</i>
+
+    9 - Тестувати всі сортування
+    <i>--- Виміряти час</i>
+    
+    ---------------------------------------------------------
+    0. Вихід
+    
+<green>Ваш вибір:
+>> </green>)");
         cin >> choice;
 
         switch (choice)
@@ -75,6 +90,7 @@ int SortMenu()
                 case 2: RunTest(100); break;
                 case 3: RunTest(1000); break;
                 case 4: RunTest(10000); break;
+                case 5: RunTest(100000); break;
                 case 0: break;
                 default:
                     LogError("Невірний вибір!");
@@ -83,10 +99,9 @@ int SortMenu()
         break;
 
         case 0:
-            run = false; 
+            run = false;
+            Log("Повернення");
             break;
-
-
         default:
             LogError("Невірний вибір!"); 
         }
