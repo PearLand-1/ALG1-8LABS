@@ -17,8 +17,8 @@ using namespace std;
 // ====== MAIN ======
 int SearchMenu()
 {
-    bool run = true; 
-    short choice;      
+    bool run = true;
+    short choice;
 
     while (run)
     {
@@ -37,6 +37,9 @@ int SearchMenu()
     1 - "Бонус": Стрибковий пошук
     <i>--- Мета роботи: Навчитися здійснювати пошук елементів у масивах даних,
     використовуючи алгоритм стрибкового пошуку</i>
+
+    2 - Тестування алгоритмів пошуку
+    <i>--- Порівняння ефективності різних алгоритмів пошуку</i>
     
     ---------------------------------------------------------
     0. Вихід
@@ -52,38 +55,44 @@ int SearchMenu()
         case 10:
             RunSearch(choice);
             break;
+        case 2:
+        {
+            int difficulty;
+            Log("=== ВИБІР СКЛАДНОСТІ ТЕСТУ ===");
+            Log("1 - Легкий (10 елементів в масиві)");
+            Log("2 - Середній (100 елементів в масиві)");
+            Log("3 - Складний (1000 елементів в масиві)");
+            Log("4 - Дуже складний (10000 елементів в масиві)");
+            cin >> difficulty;
 
-        // case 3:
-        // {
-        //     int difficulty;
-        //     cout << "\n=== ВИБІР СКЛАДНОСТІ ТЕСТУ ===\n";
-        //     cout << "1 - Легкий (10 елементів)\n";
-        //     cout << "2 - Складний (100 елементів)\n";
-        //     cout << "3 - Тяжкий (1000 елементів)\n";
-        //     cout << "4 - Дуже тяжкий (10000 елементів)\n";
-        //     cout << "0 - Назад\n";
-        //     cout << "Ваш вибір: ";
-        //     cin >> difficulty;
-
-        //     switch (difficulty) {
-        //         case 1: RunTest(10); break;
-        //         case 2: RunTest(100); break;
-        //         case 3: RunTest(1000); break;
-        //         case 4: RunTest(10000); break;
-        //         case 5: RunTest(100000); break;
-        //         case 0: break;
-        //         default:
-        //             LogError("Невірний вибір!");
-        //     }
-        // }
-        // break;
+            switch (difficulty)
+            {
+            case 1:
+                RunTest2(10);
+                break;
+            case 2:
+                RunTest2(100);
+                break;
+            case 3:
+                RunTest2(1000);
+                break;
+            case 4:
+                RunTest2(10000);
+                break;
+            case 5:
+                RunTest2(100000);
+                break;
+            default:
+                LogError("Невірний вибір!");
+            } break;
+        }
 
         case 0:
             run = false;
             Log("Повернення");
             break;
         default:
-            LogError("Невірний вибір!"); 
+            LogError("Невірний вибір!");
         }
     }
 

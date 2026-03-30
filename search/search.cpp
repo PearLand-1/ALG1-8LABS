@@ -21,11 +21,8 @@ bool LinearSearch(vector<int> &arr, int target, bool visualize)
     vector<int> a = arr;
     for (int i = 0; i < a.size(); ++i)
     {
-        if (visualize)
-        {
-            Log("Перевірка елементу: ");
-            PrintArray(a, i, -1);
-        }
+        Log("Перевірка елементу: "+ to_string(a[i]));
+        if (visualize) PrintArray(a, i, -1);
         if (a[i] == target)
         {
             LogSuccess("Індекс знайденого елемента: " + to_string(i));
@@ -48,24 +45,21 @@ bool BinarySearch(vector<int> &arr, int target, bool visualize)
     while (left <= right)
     {
         int mid = left + (right - left) / 2;
-        if (visualize)
-        {
-            Log("Індекс середнього елемента: " + to_string(mid));
-            PrintArray(a, mid, -1);
-        }
+        Log("Індекс середнього елемента: " + to_string(mid));
+        if (visualize) PrintArray(a, mid, -1);
         if (a[mid] == target)
         {
-            if (visualize) LogSuccess("Індекс знайденого елемента: " + to_string(mid));
+            LogSuccess("Індекс знайденого елемента: " + to_string(mid));
             return true;
         }
         if (a[mid] < target)
         {
-            if (visualize) Log("Шукаємо праворуч");
+            Log("Шукаємо праворуч");
             left = mid + 1;
         }
         else
         {
-            if (visualize) Log("Шукаємо ліворуч");
+            Log("Шукаємо ліворуч");
             right = mid - 1;
         }
     }
@@ -76,7 +70,7 @@ bool BinarySearch(vector<int> &arr, int target, bool visualize)
 bool JumpSearch(vector<int> &arr, int target, bool visualize)
 {
     vector<int> a = arr;
-    QuickSort(a, false, true);
+    HeapSort(a, false, true);
 
     int n = a.size();
     int step = sqrt(n);
@@ -85,7 +79,7 @@ bool JumpSearch(vector<int> &arr, int target, bool visualize)
     while (a[min(step, n) - 1] < target)
     {
         Log("Перевірка елементу: " + to_string(min(step, n) - 1));
-        PrintArray(a, min(step, n) - 1, -1);
+        if (visualize) PrintArray(a, min(step, n) - 1, -1);
         prev = step;
         step += sqrt(n);
         if (prev >= n)
@@ -95,7 +89,7 @@ bool JumpSearch(vector<int> &arr, int target, bool visualize)
     while (a[prev] < target)
     {
         Log("Перевірка елементу: " + to_string(prev));
-        PrintArray(a, prev, -1);
+        if (visualize) PrintArray(a, prev, -1);
         prev++;
         if (prev == min(step, n))
             return false;

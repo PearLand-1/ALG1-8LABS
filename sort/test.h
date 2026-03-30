@@ -1,5 +1,5 @@
-#ifndef TEST_H
-#define TEST_H
+#ifndef TESTSORT_H
+#define TESTSORT_H
 
 #include <vector>
 
