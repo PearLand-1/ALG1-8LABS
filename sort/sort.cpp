@@ -20,7 +20,7 @@
 using namespace std;
 
 // ===== SELECTION SORT =====
-void SelectionSort(vector<int> a, bool visualize, bool ascending)
+void SelectionSort(vector<int>& a, bool visualize, bool ascending)
 {
     int n = a.size();
 
@@ -66,7 +66,7 @@ void SelectionSort(vector<int> a, bool visualize, bool ascending)
 }
 
 // ===== INSERTION SORT =====
-void InsertionSort(vector<int> a, bool visualize, bool ascending)
+void InsertionSort(vector<int>& a, bool visualize, bool ascending)
 {
     int n = a.size();
 
@@ -116,7 +116,7 @@ void InsertionSort(vector<int> a, bool visualize, bool ascending)
 }
 
 // ===== BUBBLE SORT =====
-void BubbleSort(vector<int> a, bool visualize, bool ascending)
+void BubbleSort(vector<int>& a, bool visualize, bool ascending)
 {
     int n = a.size();
 
@@ -200,7 +200,7 @@ void MergeSortRec(vector<int>& a, int left, int right, bool visualize, bool asce
     Merge(a, left, mid, right, visualize, ascending);
 }
 
-void MergeSort(vector<int> a, bool visualize, bool ascending)
+void MergeSort(vector<int>& a, bool visualize, bool ascending)
 {
     MergeSortRec(a, 0, a.size() - 1, visualize, ascending);
     if (a.size() <= 200) 
@@ -245,7 +245,7 @@ void QuickSortRec(vector<int>& a, int low, int high, bool visualize, bool ascend
     }
 }
 
-void QuickSort(vector<int> a, bool visualize, bool ascending)
+void QuickSort(vector<int>& a, bool visualize, bool ascending)
 {
     QuickSortRec(a, 0, a.size() - 1, visualize, ascending);
     if (a.size() <= 200) 
@@ -258,7 +258,7 @@ void QuickSort(vector<int> a, bool visualize, bool ascending)
 }
 
 // ===== SHELL SORT =====
-void ShellSort(vector<int> a, bool visualize, bool ascending)
+void ShellSort(vector<int>& a, bool visualize, bool ascending)
 {
     int n = a.size();
     
@@ -292,7 +292,7 @@ void ShellSort(vector<int> a, bool visualize, bool ascending)
 }
 
 // ===== SHAKER SORT =====
-void ShakerSort(vector<int> a, bool visualize, bool ascending)
+void ShakerSort(vector<int>& a, bool visualize, bool ascending)
 {
     int n = a.size();
     int left = 0, right = n - 1;
@@ -367,7 +367,7 @@ void Heapify(vector<int>& a, int n, int i, bool visualize, bool ascending)
     }
 }
 
-void HeapSort(vector<int> a, bool visualize, bool ascending)
+void HeapSort(vector<int>& a, bool visualize, bool ascending)
 {
     int n = a.size();
     
@@ -406,25 +406,25 @@ void HeapSort(vector<int> a, bool visualize, bool ascending)
 void RunAlgorithm(int type)
 {
     bool visualize;
-    Log("<cyan>Візуалізувати? 1 - так, 0 - ні\n>> </cyan>");
+    Log("Візуалізувати? 1 - так, 0 - ні\n>> ");
     cin >> visualize;
     
     if (visualize)
     {
-        Log("<cyan>Затримка (мс, рекомендовано 100-1000)\n>> </cyan>");
+        Log("Затримка (мс, рекомендовано 100-1000)\n>> ");
         cin >> visualizationDelay;
     }
 
     int orderChoice;
-    Log("<cyan>Порядок сортування:</cyan>");
-    Log("<cyan>1 - За зростанням</cyan>");
-    Log("<cyan>2 - За спаданням\n>> </cyan>");
+    Log("Порядок сортування:");
+    Log("1 - За зростанням");
+    Log("2 - За спаданням\n>> ");
     cin >> orderChoice;
 
     bool ascending = (orderChoice == 1);
 
     int inputType;
-    Log("<cyan>1 - Ввести вручну\n2 - Випадкові значення\n>> </cyan>");
+    Log("1 - Ввести вручну\n2 - Випадкові значення\n>> ");
     cin >> inputType;
 
     vector<int> arr;

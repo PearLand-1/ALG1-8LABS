@@ -7,20 +7,22 @@
 
 using namespace std;
 
-double TestSortingAlgorithm(int algorithmType, vector<int> arr) {
+double TestSortingAlgorithm(int algorithmType, vector<int> arr_) {
     bool visualize = false;
     visualizationDelay = 0;
 
+    vector<int> arrCopy = arr_;
+    
     auto start = chrono::high_resolution_clock::now();
     switch (algorithmType) {
-        case 1: SelectionSort(arr, visualize, true); break;
-        case 2: InsertionSort(arr, visualize, true); break;
-        case 3: BubbleSort(arr, visualize, true); break;
-        case 4: MergeSort(arr, visualize, true); break;
-        case 5: QuickSort(arr, visualize, true); break;
-        case 6: ShellSort(arr, visualize, true); break;
-        case 7: ShakerSort(arr, visualize, true); break;
-        case 8: HeapSort(arr, visualize, true); break;
+        case 1: SelectionSort(arrCopy, visualize, true); break;
+        case 2: InsertionSort(arrCopy, visualize, true); break;
+        case 3: BubbleSort(arrCopy, visualize, true); break;
+        case 4: MergeSort(arrCopy, visualize, true); break;
+        case 5: QuickSort(arrCopy, visualize, true); break;
+        case 6: ShellSort(arrCopy, visualize, true); break;
+        case 7: ShakerSort(arrCopy, visualize, true); break;
+        case 8: HeapSort(arrCopy, visualize, true); break;
         default:
             cout << "Невірний тип сортування!" << endl;
             return 0.0;
