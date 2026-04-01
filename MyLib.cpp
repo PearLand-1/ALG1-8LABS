@@ -3,16 +3,28 @@
 #include "MyLib.h"
 
 #include <iostream>
+#include <string>
+#include <limits>
 #include <thread>
 #include <chrono>
 #include <iomanip>
 #include <regex>
+#include <utility>
 #include <vector>
 
 using namespace std;
 
-string resetColor = "\033[0m";
+string resetText = "\033[0m";
 int visualizationDelay = 300;
+
+string red = "\x1b[31m";
+string green = "\x1b[32m";
+string yellow = "\x1b[33m";
+string blue = "\x1b[34m";
+string magenta = "\x1b[35m";
+string cyan = "\x1b[36m";
+string white = "\x1b[37m";
+string resetColor = "\x1b[39m";
 
 /*
     Опис: Функція FromCustomFormatToString перетворює ANSI-коди форматування
@@ -47,17 +59,17 @@ string FromCustomFormatToString(string item) {
     item = regex_replace(item, regex("</u>"), "\x1b[24m");
 
     // Кольори
-    item = regex_replace(item, regex("<red>"), "\x1b[31m");
-    item = regex_replace(item, regex("<green>"), "\x1b[32m");
-    item = regex_replace(item, regex("<yellow>"), "\x1b[33m");
-    item = regex_replace(item, regex("<blue>"), "\x1b[34m");
-    item = regex_replace(item, regex("<magenta>"), "\x1b[35m");
-    item = regex_replace(item, regex("<cyan>"), "\x1b[36m");
-    item = regex_replace(item, regex("<white>"), "\x1b[37m");
+    item = regex_replace(item, regex("<red>"), red);
+    item = regex_replace(item, regex("<green>"), green);
+    item = regex_replace(item, regex("<yellow>"), yellow);
+    item = regex_replace(item, regex("<blue>"), blue);
+    item = regex_replace(item, regex("<magenta>"), magenta);
+    item = regex_replace(item, regex("<cyan>"), cyan);
+    item = regex_replace(item, regex("<white>"), white);
     item = regex_replace(item, regex("---"), "——");
 
     // Закриття кольорів і скидання стилів
-    item = regex_replace(item, regex("</red>|</green>|</yellow>|</blue>|</magenta>|</cyan>|</white>"), "\x1b[39m");
+    item = regex_replace(item, regex("</red>|</green>|</yellow>|</blue>|</magenta>|</cyan>|</white>"), resetColor);
     item = regex_replace(item, regex("</b>|</i>|</u>"), "\x1b[0m"); // reset стилів
 
     return item;
@@ -88,7 +100,7 @@ void PrintArray(vector<int>& a, int idx1, int idx2)
     for (int i = 0; i < a.size(); i++)
     {
         if (i == idx1 || i == idx2) cout << highlight;
-        cout << colors[i % 9] << setw(4) << a[i] << resetColor << " ";
+        cout << colors[i % 9] << setw(4) << a[i] << resetText << " ";
     }
     cout << endl;
     Delay();
@@ -99,36 +111,15 @@ void PrintArray(vector<int>& a, int idx1, int idx2)
 // =================== ВВЕДЕННЯ ===================
 vector<int> InputArray()
 {
-    int n;
-
-    cout << FromCustomFormatToString(R"(<magenta><i><u>Поле для введення масиву</u></i></magenta>
-<cyan>Введіть розмір масиву
+    int n = ReadPositiveInt(R"(Введіть розмір масиву
 >> )");
-    cin >> n;
-
-    while (n <= 0)
-    {
-        LogError("Розмір масиву потрібнен бути більше 0. Спробуйте ще.");
-        cin >> n;
-    }
 
     vector<int> arr(n);
 
-    cout << FromCustomFormatToString(format(R"(<cyan>Тепер введіть <green>{} <cyan>цілих чисел.
-Потрібно ввести <u>В ОДИН РЯДОК</u> через пробіл.
-<i>Приклад</i>: 5 2 -3 10 8
-Ваш ввід:
->> )", n));
+    Log(FromCustomFormatToString("<cyan>Тепер введіть " + to_string(n) + " цілих чисел (по одному).</cyan>"));
 
     for (int i = 0; i < n; i++)
-    {
-        while (!(cin >> arr[i]))
-        {
-            cin.clear();
-            cin.ignore(10000, '\n');
-            LogError("Помилка! Введіть ЦІЛЕ число: ");
-        }
-    }
+        arr[i] = ReadInt("Елемент " + to_string(i + 1) + " з " + to_string(n) + ": ");
 
     LogSuccess("\nМасив успішно зчитано!\n");
 
@@ -137,17 +128,53 @@ vector<int> InputArray()
 
 vector<int> RandomArray()
 {
-    int n, minVal, maxVal;
-    cout << FromCustomFormatToString("<cyan>Розмір масиву: \n>> ");
-    cin >> n;
-    cout << FromCustomFormatToString("<cyan>Мінімальне значення: \n>> ");
-    cin >> minVal;
-    cout << FromCustomFormatToString("<cyan>Максимальне значення: \n>> ");
-    cin >> maxVal;
+    int n = ReadPositiveInt("Розмір масиву: \n");
+    int minVal = ReadInt("Мінімальне значення: \n");
+    int maxVal = ReadInt("Максимальне значення: \n");
+
+    if (maxVal < minVal)
+    {
+        LogError("Максимум менший за мінімум — міняю місцями.");
+        swap(minVal, maxVal);
+    }
 
     vector<int> arr(n);
     for (int i = 0; i < n; i++)
         arr[i] = minVal + rand() % (maxVal - minVal + 1);
 
     return arr;
+}
+
+void WaitForEnter()
+{
+    LogSuccess("\nНатисніть Enter, щоб продовжити...");
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
+}
+
+int ReadInt(const string& prompt)
+{
+    int value;
+    while (true)
+    {
+        cout << FromCustomFormatToString("<cyan>" + prompt + "</cyan>");
+        if (cin >> value)
+            return value;
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        LogError("Некоректний ввід. Спробуйте ще раз.");
+    }
+}
+
+int ReadPositiveInt(const string& prompt)
+{
+    int value;
+    do
+    {
+        value = ReadInt(prompt);
+        if (value <= 0)
+            LogError("Число має бути додатним.");
+    } while (value <= 0);
+    return value;
 }

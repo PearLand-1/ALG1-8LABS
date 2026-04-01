@@ -8,10 +8,10 @@
 #include "../MyLib.h"
 #include "../sort/sort.h"
 
-#include "iostream"
+#include <iostream>
 #include "search.h"
 #include "test.h"
-#include "math.h"
+#include <cmath>
 
 using namespace std;
 

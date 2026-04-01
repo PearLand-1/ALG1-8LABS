@@ -7,6 +7,7 @@
  ======================================================= */
 #include "sort/mainSort.h"
 #include "search/mainSearch.h"
+#include "hash/mainHash.h"
 #include "MyLib.h"
 
 #include <windows.h>
@@ -35,6 +36,9 @@ int main() {
 
     2. Відкрити меню лаболаторної 9 - 10
     <i>--- Різні методи пошуку елементу в масиві</i>
+
+    3. Відкрити меню лабораторних 11 - 12
+    <i>--- Хеш-таблиці і вирішення колізій</i>
     
     ---------------------------------------------------------
     0. Вихід
@@ -48,6 +52,9 @@ int main() {
                 break;
             case 2:
                 SearchMenu();
+                break;
+            case 3:
+                HashMain();
                 break;
             case 0:
                 run = false;

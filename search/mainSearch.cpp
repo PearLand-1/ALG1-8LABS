@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <windows.h>
+#include "mainSearch.h"
 #include "search.h"
 #include "../MyLib.h"
 #include "test.h"
