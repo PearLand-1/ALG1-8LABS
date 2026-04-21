@@ -178,3 +178,15 @@ int ReadPositiveInt(const string& prompt)
     } while (value <= 0);
     return value;
 }
+
+int ReadIntInRange(const string& prompt, int minValue, int maxValue)
+{
+    int value;
+    do
+    {
+        value = ReadInt(prompt);
+        if (value < minValue || value > maxValue)
+            LogError("Число має бути у межах [" + to_string(minValue) + ", " + to_string(maxValue) + "].");
+    } while (value < minValue || value > maxValue);
+    return value;
+}

@@ -1,6 +1,7 @@
 #ifndef HASH_H
 #define HASH_H
 
+#include <cstddef>
 #include <vector>
 
 // Структура для зберігання пари ключ-значення
@@ -11,27 +12,27 @@ struct hashTableEntry {
 
 class hashMapTable {
 private:
-    int T_S;                                 // Розмір таблиці
-    std::vector<hashTableEntry>* table;      // Масив векторів (ланцюжки)
+    std::size_t T_S;                                 // Розмір таблиці
+    std::vector<std::vector<hashTableEntry>> table;  // Масив векторів (ланцюжки)
 
     // Хеш-функція (обчислення індексу)
-    int hashFunction(int key) const;
+    std::size_t hashFunction(int key) const;
 
 public:
     // Конструктор
     explicit hashMapTable(int size);
-
-    // Деструктор
-    ~hashMapTable();
+    std::size_t GetSize() const;
 
     // Вставка або оновлення елемента
     void Insert(int key, int value);
 
     // Пошук значення за ключем
+    bool TryGetValue(int key, int& value) const;
+    bool ContainsKey(int key) const;
     int SearchKey(int key);
 
     // Видалення ключа
-    void Remove(int key);
+    bool Remove(int key);
 
     // Показати стан таблиці
     void DisplayTable() const;

@@ -37,5 +37,6 @@ void WaitForEnter();
 // Введення цілих з консолі (з повтором при помилці)
 int ReadInt(const std::string& prompt);
 int ReadPositiveInt(const std::string& prompt);
+int ReadIntInRange(const std::string& prompt, int minValue, int maxValue);
 
 #endif

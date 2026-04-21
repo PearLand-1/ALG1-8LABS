@@ -9,28 +9,51 @@
 #include "hash.h"
 #include "../MyLib.h"
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
 // Реалізація хеш-функції
-int hashMapTable::hashFunction(int key) const
+size_t hashMapTable::hashFunction(int key) const
 {
-    return key % T_S;
+    if (T_S == 0)
+        return 0;
+    const int normalized = ((key % static_cast<int>(T_S)) + static_cast<int>(T_S)) % static_cast<int>(T_S);
+    return static_cast<size_t>(normalized);
 }
 
 // Конструктор
 hashMapTable::hashMapTable(int size)
 {
-    T_S = size;
-    table = new vector<hashTableEntry>[T_S];
+    constexpr size_t kMinSize = 1;
+    constexpr size_t kMaxSize = 100000;
+
+    if (size < static_cast<int>(kMinSize)) {
+        LogError("Некоректний розмір хеш-таблиці. Встановлено мінімальне значення 1.");
+        T_S = kMinSize;
+    } else {
+        T_S = static_cast<size_t>(size);
+    }
+
+    if (T_S > kMaxSize) {
+        LogError("Занадто великий розмір хеш-таблиці. Встановлено максимум 100000.");
+        T_S = kMaxSize;
+    }
+
+    table.resize(T_S);
+}
+
+size_t hashMapTable::GetSize() const
+{
+    return T_S;
 }
 
 // Вставка
 void hashMapTable::Insert(int key, int value)
 {
-    int index = hashFunction(key);
+    const size_t index = hashFunction(key);
 
     for (auto &entry : table[index])
     {
@@ -46,39 +69,54 @@ void hashMapTable::Insert(int key, int value)
 }
 
 // Пошук
-int hashMapTable::SearchKey(int key)
+bool hashMapTable::TryGetValue(int key, int& value) const
 {
-    int index = hashFunction(key);
+    const size_t index = hashFunction(key);
 
-    for (auto &entry : table[index])
+    for (const auto &entry : table[index])
     {
-        if (entry.key == key)
-            return entry.value;
+        if (entry.key != key)
+            continue;
+        value = entry.value;
+        return true;
     }
 
-    return -1;
+    return false;
+}
+
+bool hashMapTable::ContainsKey(int key) const
+{
+    int value;
+    return TryGetValue(key, value);
+}
+
+int hashMapTable::SearchKey(int key)
+{
+    int value;
+    return TryGetValue(key, value) ? value : -1;
 }
 
 // Видалення
-void hashMapTable::Remove(int key)
+bool hashMapTable::Remove(int key)
 {
-    int index = hashFunction(key);
+    const size_t index = hashFunction(key);
 
     for (auto it = table[index].begin(); it != table[index].end(); ++it)
     {
         if (it->key == key)
         {
             table[index].erase(it);
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 // Відобразити стан таблиці
 void hashMapTable::DisplayTable() const
 {
     std::cout << "\nСтан хеш-таблиці:\n";
-    for (int i = 0; i < T_S; ++i)
+    for (size_t i = 0; i < T_S; ++i)
     {
         std::cout << green << "[" << i << "]" << resetColor;
         if (table[i].empty())
@@ -103,7 +141,7 @@ void hashMapTable::PrintStatistics() const
     int usedBuckets = 0;
     int collisions = 0;
 
-    for (int i = 0; i < T_S; ++i)
+    for (size_t i = 0; i < T_S; ++i)
     {
         int bucketSize = static_cast<int>(table[i].size());
         if (bucketSize > 0)
@@ -131,7 +169,7 @@ void hashMapTable::DisplayCollisions() const
     std::cout << "\nКолізії у хеш-таблиці:\n";
     bool hasCollision = false;
 
-    for (int i = 0; i < T_S; ++i)
+    for (size_t i = 0; i < T_S; ++i)
     {
         if (table[i].size() > 1)
         {
@@ -149,10 +187,4 @@ void hashMapTable::DisplayCollisions() const
     {
         std::cout << "  Колізій не знайдено.\n";
     }
-}
-
-// Деструктор
-hashMapTable::~hashMapTable()
-{
-    delete[] table;
 }

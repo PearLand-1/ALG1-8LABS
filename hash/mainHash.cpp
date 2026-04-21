@@ -7,8 +7,8 @@
  ======================================================= */
 
 #include <iostream>
-#include <limits>
 #include <string>
+#include <vector>
 
 #include "mainHash.h"
 #include "hash.h"
@@ -17,22 +17,39 @@
 
 using namespace std;
 
+static int ReadHashTableSize()
+{
+    return ReadIntInRange("Введіть розмір хеш-таблиці [1..100000]: ", 1, 100000);
+}
+
+static void ShowHeader(const string& title, const string& subtitle)
+{
+    ClearScreen();
+    cout << FromCustomFormatToString(
+        "<magenta><i><u>" + title + "</u></i></magenta>\n"
+        "<b>Виконав:</b> <i>Чорноус Сергій ІПЗ-22</i>\n"
+        "<cyan>" + subtitle + "</cyan>\n");
+}
+
+static void ShowTableState(const hashMapTable& hashTable)
+{
+    hashTable.DisplayTable();
+    Log("   ");
+    hashTable.PrintStatistics();
+}
+
 // ====== LAB 11 ======
 static void RunLab11()
 {
-    int size = ReadPositiveInt("Введіть розмір хеш-таблиці: ");
+    int size = ReadHashTableSize();
     hashMapTable hashTable(size);
     bool run = true;
-    short choice;
 
     while (run)
     {
-        ClearScreen();
-        cout << FromCustomFormatToString(R"(<magenta><i><u>Лабораторна 11. Хеш-таблиці</u></i></magenta>
-<cyan>Використовуйте меню для вставки, пошуку та видалення елементів.</cyan>)") << "\n";
-        hashTable.DisplayTable();
-        Log("   ");
-        hashTable.PrintStatistics();
+        ShowHeader("Лабораторна робота 11. Хеш-таблиці",
+                   "Вставка, пошук і видалення елементів");
+        ShowTableState(hashTable);
 
         cout << FromCustomFormatToString(R"(
 <green>Меню 11:</green>
@@ -44,14 +61,7 @@ static void RunLab11()
   0 - Повернутися назад
 <green>Оберіть опцію: </green>)");
 
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            LogError("Неправильний ввід. Введіть число з меню.");
-            WaitForEnter();
-            continue;
-        }
+        const int choice = ReadIntInRange("", 0, 5);
 
         switch (choice)
         {
@@ -67,8 +77,8 @@ static void RunLab11()
         case 2:
         {
             int key = ReadInt("Введіть ключ для пошуку: ");
-            int result = hashTable.SearchKey(key);
-            if (result != -1)
+            int result = 0;
+            if (hashTable.TryGetValue(key, result))
                 LogSuccess("Знайдено значення: " + to_string(result));
             else
                 LogError("Ключ не знайдено.");
@@ -78,14 +88,10 @@ static void RunLab11()
         case 3:
         {
             int key = ReadInt("Введіть ключ для видалення: ");
-            int value = hashTable.SearchKey(key);
-            if (value == -1)
+            if (!hashTable.Remove(key))
                 LogError("Ключ не знайдено.");
             else
-            {
-                hashTable.Remove(key);
                 LogSuccess("Ключ успішно видалено.");
-            }
             WaitForEnter();
         }
             break;
@@ -100,10 +106,6 @@ static void RunLab11()
         case 0:
             run = false;
             break;
-        default:
-            LogError("Неправильний вибір. Спробуйте ще раз.");
-            WaitForEnter();
-            break;
         }
     }
 }
@@ -111,19 +113,15 @@ static void RunLab11()
 // ====== LAB 12 ======
 static void RunLab12()
 {
-    int size = ReadPositiveInt("Введіть розмір хеш-таблиці: ");
+    int size = ReadHashTableSize();
     hashMapTable hashTable(size);
     bool run = true;
-    short choice;
 
     while (run)
     {
-        ClearScreen();
-        cout << FromCustomFormatToString(R"(<magenta><i><u>Лабораторна 12. Вирішення колізій</u></i></magenta>
-<cyan>Колізії вирішуються за допомогою ланцюжків у бакетах.</cyan>)") << "\n";
-        hashTable.DisplayTable();
-        Log("   ");
-        hashTable.PrintStatistics();
+        ShowHeader("Лабораторна робота 12. Вирішення колізій",
+                   "Ланцюжки у бакетах та аналіз колізій");
+        ShowTableState(hashTable);
 
         cout << FromCustomFormatToString(R"(
 <green>Меню 12:</green>
@@ -134,14 +132,7 @@ static void RunLab12()
   0 - Повернутися назад
 <green>Оберіть опцію: </green>)");
 
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            LogError("Неправильний ввід. Введіть число з меню.");
-            WaitForEnter();
-            continue;
-        }
+        const int choice = ReadIntInRange("", 0, 4);
 
         switch (choice)
         {
@@ -169,10 +160,6 @@ static void RunLab12()
         case 0:
             run = false;
             break;
-        default:
-            LogError("Неправильний вибір. Спробуйте ще раз.");
-            WaitForEnter();
-            break;
         }
     }
 }
@@ -180,12 +167,11 @@ static void RunLab12()
 // ====== MAIN ======
 void HashMain()
 {
-    short choice;
     bool run = true;
 
     while (run)
     {
-        ClearScreen();
+        ShowHeader("Меню лабораторних 11 - 12", "Хеш-таблиці, колізії та автотести");
         cout << FromCustomFormatToString(R"(<magenta><i><u>Меню лабораторних 11 - 12</u></i></magenta>
 <cyan>Обрати дію</cyan>
 
@@ -203,14 +189,7 @@ void HashMain()
 <green>Ваш вибір:
 >> </green>)");
 
-        if (!(cin >> choice))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            LogError("Неправильний ввід. Введіть число з меню.");
-            WaitForEnter();
-            continue;
-        }
+        const int choice = ReadIntInRange("", 0, 3);
 
         switch (choice)
         {
@@ -227,10 +206,6 @@ void HashMain()
             break;
         case 0:
             run = false;
-            break;
-        default:
-            LogError("Неправильний вибір. Спробуйте ще раз.");
-            WaitForEnter();
             break;
         }
     }
