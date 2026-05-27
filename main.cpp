@@ -9,6 +9,7 @@
 #include "search/mainSearch.h"
 #include "hash/mainHash.h"
 #include "node/mainNode.h"
+#include "graph/mainGraph.h"
 #include "MyLib.h"
 
 #include <windows.h>
@@ -43,13 +44,16 @@ int main() {
 
     4. Відкрити меню лабораторних 13 - 14
     <i>--- Однозв'язні, двозв'язні та кільцеві списки</i>
+
+    5. Відкрити меню лабораторних 21 - 23
+    <i>--- Графи: матриця суміжності, DFS, BFS</i>
     
     ---------------------------------------------------------
     0. Вихід
     
 <green>Ваш вибір:
 >> </green>)");
-        choice = ReadIntInRange("", 0, 4);
+        choice = ReadIntInRange("", 0, 5);
         switch(choice) {
             case 1:
                 SortMenu();
@@ -62,6 +66,9 @@ int main() {
                 break;
             case 4:
                 NodeMain();
+                break;
+            case 5:
+                GraphMain();
                 break;
             case 0:
                 run = false;
