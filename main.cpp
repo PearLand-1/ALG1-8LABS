@@ -8,6 +8,7 @@
 #include "sort/mainSort.h"
 #include "search/mainSearch.h"
 #include "hash/mainHash.h"
+#include "node/mainNode.h"
 #include "MyLib.h"
 
 #include <windows.h>
@@ -39,13 +40,16 @@ int main() {
 
     3. Відкрити меню лабораторних 11 - 12
     <i>--- Хеш-таблиці і вирішення колізій</i>
+
+    4. Відкрити меню лабораторних 13 - 14
+    <i>--- Однозв'язні, двозв'язні та кільцеві списки</i>
     
     ---------------------------------------------------------
     0. Вихід
     
 <green>Ваш вибір:
 >> </green>)");
-        cin >> choice;
+        choice = ReadIntInRange("", 0, 4);
         switch(choice) {
             case 1:
                 SortMenu();
@@ -55,6 +59,9 @@ int main() {
                 break;
             case 3:
                 HashMain();
+                break;
+            case 4:
+                NodeMain();
                 break;
             case 0:
                 run = false;
