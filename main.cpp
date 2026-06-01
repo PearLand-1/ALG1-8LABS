@@ -10,6 +10,7 @@
 #include "hash/mainHash.h"
 #include "node/mainNode.h"
 #include "graph/mainGraph.h"
+#include "graph_more/mainGraphMore.h"
 #include "MyLib.h"
 
 #include <windows.h>
@@ -47,13 +48,16 @@ int main() {
 
     5. Відкрити меню лабораторних 21 - 23
     <i>--- Графи: матриця суміжності, DFS, BFS</i>
+
+    6. Відкрити меню лабораторних 24 - 26
+    <i>--- Розширені графи: топологія, MST</i>
     
     ---------------------------------------------------------
     0. Вихід
     
 <green>Ваш вибір:
 >> </green>)");
-        choice = ReadIntInRange("", 0, 5);
+        choice = ReadIntInRange("", 0, 6);
         switch(choice) {
             case 1:
                 SortMenu();
@@ -69,6 +73,9 @@ int main() {
                 break;
             case 5:
                 GraphMain();
+                break;
+            case 6:
+                GraphMoreMain();
                 break;
             case 0:
                 run = false;
