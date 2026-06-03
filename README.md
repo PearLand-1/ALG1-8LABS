@@ -108,7 +108,7 @@ cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search
 2. Переконайтеся, що `g++` доступний у PATH
 3. Виконайте (рекомендована команда з **C++20** і статичним лінкуванням стандартної бібліотеки MinGW — зручно переносити `program.exe`):
 ```bash
-g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp -static-libgcc -static-libstdc++ -static
+g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
 ```
 
 ### Linux
@@ -119,7 +119,7 @@ g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp
    - Arch: `sudo pacman -S gcc`
 2. Виконайте:
 ```bash
-g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp
+g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp
 ```
 
 ### macOS
@@ -130,7 +130,7 @@ xcode-select --install
 ```
 2. Виконайте:
 ```bash
-g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp
+g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp
 ```
 
 ### Додаткові інструкції

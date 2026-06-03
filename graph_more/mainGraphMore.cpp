@@ -1,7 +1,7 @@
 /* =======================================================
 
     Алгоритми і структура данних
-    Лабораторні роботи №24-26 (графи ширше)
+    Лабораторні роботи №24-30 (графи ширше)
     Виконав: Чорноус Сергій ІПЗ-22
 
  ======================================================= */
@@ -18,6 +18,7 @@
 
 #include "../MyLib.h"
 #include "../graph/graph.h"
+#include "graph_high.h"
 
 using namespace std;
 
@@ -519,15 +520,15 @@ void GraphMoreMain()
 
     while (run)
     {
-        ShowHeader("Лабораторні роботи 24-26. Розширені графи", "Топологічне сортування, Краскал, Прім");
+        ShowHeader("Лабораторні роботи 24-30. Розширені графи", "Топологічне сортування, MST, та алгоритми найкоротшого шляху");
 
         if (g_hasGraph && !g_graph.empty())
             LogSuccess("Граф завантажено: " + to_string(g_graph.size()) + " вершин.");
         else
-            LogError("Граф ще не задано.");
+            LogError("Граф ще не задано. Спочатку введіть або завантажте його.");
 
         cout << FromCustomFormatToString(R"(
-<green>Меню графів (24-26):</green>
+<green>Меню графів (24-30):</green>
 
 Введення / довiдка:
   1 - Ввести матрицю з клавiатури
@@ -545,13 +546,25 @@ void GraphMoreMain()
 Лаб. 26 (Прім):
   8 - Мінімальне кістякове дерево (Прім)
 
+Лаб. 27 (Дейкстра):
+  9 - Алгоритм Дейкстри (на завантаженому графі)
+
+Лаб. 28 (Беллман-Форд):
+ 10 - Алгоритм Беллмана-Форда (на завантаженому графі)
+
+Лаб. 29 (Флойд-Воршалл):
+ 11 - Алгоритм Флойда-Воршалла (на завантаженому графі)
+
+Лаб. 30 (A*):
+ 12 - Алгоритм A* (на завантаженому графі)
+
   0 - Повернутись назад
 
 <green>Оберiть опцiю: </green>)");
 
-        const int choice = ReadIntInRange("", 0, 8);
+        const int choice = ReadIntInRange("", 0, 12);
         switch (choice)
-        {
+{
         case 1: InputAdjMatrixKeyboard(); break;
         case 2: InputAdjMatrixFromFile(); break;
         case 3: InputAdjMatrixFromEdges(); break;
@@ -560,6 +573,10 @@ void GraphMoreMain()
         case 6: RunTopoKahn(); break;
         case 7: RunKruskal(); break;
         case 8: RunPrim(); break;
+        case 9: if (EnsureGraphLoaded()) RunHighDijkstra(g_graph); break;
+        case 10: if (EnsureGraphLoaded()) RunHighBellmanFord(g_graph); break;
+        case 11: if (EnsureGraphLoaded()) RunHighFloydWarshall(g_graph); break;
+        case 12: if (EnsureGraphLoaded()) RunHighAStar(g_graph); break;
         case 0: run = false; break;
         default: LogError("Невiдома опцiя."); break;
         }
