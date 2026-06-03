@@ -171,6 +171,7 @@ void HashMain()
 
     while (run)
     {
+        ClearScreen();
         cout << FromCustomFormatToString(R"(<magenta><i><u>Меню лабораторних 11 - 12</u></i></magenta>
 <cyan>Обрати дію
 

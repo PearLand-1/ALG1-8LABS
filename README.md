@@ -8,10 +8,11 @@
 - Лабораторні роботи №11-12: хеш-таблиця з ланцюговим вирішенням колізій
 - Лабораторні роботи №13-14: однозв'язні, двозв'язні та кільцеві списки
 - Лабораторні роботи №15-17: лінійні динамічні структури даних (стек, черги, пріоритетна черга, дек)
+- Лабораторні роботи №18-19: бінарне дерево пошуку та AVL-дерево з автоматичним балансуванням
 - Лабораторні роботи №21-23: графи (матриця суміжності, DFS, BFS)
 - Лабораторні роботи №24-26: розширені графи (топологія, MST Краскал/Прім)
 
-Проєкт реалізовано з інтерактивним меню, кольоровою візуалізацією, тестами продуктивності (сортування та пошук) та **тестами коректності** для хеш-таблиці на **заготовлених** ключах і значеннях (без вимірювання часу).
+Проєкт реалізовано з інтерактивним меню, кольоровою візуалізацією, тестами продуктивності (сортування та пошук), тестами коректності для хеш-таблиці та текстовою ASCII-візуалізацією дерев.
 
 ## Хто виконав
 
@@ -26,6 +27,9 @@
 - Хеш-таблиця: вставка, пошук, оновлення, видалення; перегляд колізій і статистики
 - Списки: однозв'язні, двозв'язні та кільцеві структури з операціями вставки, видалення, пошуку та виводу
 - Динамічні структури даних: стек, черги, пріоритетна черга, дек
+- Бінарне дерево пошуку: вставка, пошук, видалення, обходи, мінімум/максимум, висота, кількість вузлів
+- AVL-дерево: автоматичне балансування при вставці, видалення з балансуванням, обходи, висота, баланс кореня
+- ASCII-візуалізація дерев у текстовому вигляді для обох модулів
 - Графи: матриця суміжності, DFS, BFS, топологічне сортування та MST (Краскал/Прім)
 - **Автоматичні тести коректності** хеш-таблиці (`RunHashCorrectnessTests`) — перевірка правильності на фіксованих сценаріях із **покроковою візуалізацією** таблиці, статистики та колізій (як у лабораторних меню)
 
@@ -47,6 +51,8 @@
 - `node/dlist.cpp`, `node/dlist.h` — двозв'язний список (лаб. 14)
 - `node/clist.cpp`, `node/clist.h` — кільцевий однозв'язний список (лаб. 14)
 - `stack/mainStack.cpp`, `stack/mainStack.h` — меню лабораторних 15-17 (стек, черги, пріоритетна черга, дек)
+- `tree/mainTree.cpp`, `tree/mainTree.h` — меню лабораторних 18-19
+- `tree/tree.cpp`, `tree/tree.h` — реалізація бінарного дерева пошуку та AVL-дерева з ASCII-візуалізацією
 - `graph/mainGraph.cpp`, `graph/mainGraph.h` — меню лабораторних 21-23
 - `graph/graph.cpp`, `graph/graph.h` — матриця суміжності, довідка, DFS, BFS
 - `graph_more/mainGraphMore.cpp`, `graph_more/mainGraphMore.h` — меню лабораторних 24-26 (топологія, MST)
@@ -54,11 +60,13 @@
 ## Опис основних функцій
 
 ### Головні функції
-- `main()` — запускає головне меню для вибору між сортуванням, пошуком і хеш-таблицею
+- `main()` — запускає головне меню для вибору між сортуванням, пошуком, хеш-таблицею, списками, деревами та графами
 - `SortMenu()` — відображає меню лабораторних робіт 1-8 і обробляє вибір
 - `SearchMenu()` — відображає меню лабораторних робіт 9-10 і обробляє вибір
 - `HashMain()` — меню лабораторних 11-12 (інтерактивно та пункт з автотестами)
 - `NodeMain()` — меню лабораторних 13-14 (списки)
+- `StackMain()` — меню лабораторних 15-17 (стек, черги, пріоритетна черга, дек)
+- `TreeMain()` — меню лабораторних 18-19 (дерева)
 - `GraphMain()` — меню лабораторних 21-23 (графи: введення, довідка, DFS, BFS)
 - `GraphMoreMain()` — меню лабораторних 24-26 (топологічне сортування, MST Краскал/Прім)
 
@@ -103,7 +111,7 @@
 2. Перейдіть до папки проекту
 3. Виконайте:
 ```bash
-cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/mainSearch.cpp search/search.cpp search/test.cpp hash/mainHash.cpp hash/hash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp /Fe:program.exe
+cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/mainSearch.cpp search/search.cpp search/test.cpp hash/mainHash.cpp hash/hash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp /Fe:program.exe
 ```
 
 #### MinGW/GCC
@@ -111,7 +119,7 @@ cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search
 2. Переконайтеся, що `g++` доступний у PATH
 3. Виконайте (рекомендована команда з **C++20** і статичним лінкуванням стандартної бібліотеки MinGW — зручно переносити `program.exe`):
 ```bash
-g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
+g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
 ```
 
 ### Linux
@@ -122,7 +130,7 @@ g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp
    - Arch: `sudo pacman -S gcc`
 2. Виконайте:
 ```bash
-g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
+g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
 ```
 
 ### macOS
@@ -133,7 +141,7 @@ xcode-select --install
 ```
 2. Виконайте:
 ```bash
-g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp
+g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp
 ```
 
 ### Додаткові інструкції
@@ -169,8 +177,9 @@ program.exe
 5. Для списків: **`13`** — однозв'язний список; **`14`** — двозв'язний і кільцевий (підменю)
 6. Для графів **21-23**: введення матриці (клавіатура / файл / список ребер), довідка, DFS, BFS; пункт **`6`** у підменю — демо-граф з методички
 7. Для розширених графів **24-26**: введення/довідка (пункти `1-4`), топосорт DFS/Кана (пункти `5-6`), MST Краскал/Прім (пункти `7-8`)
-8. Введіть масив вручну або згенеруйте випадковий масив (для сортування/пошуку)
-9. За потреби вмикайте візуалізацію та задайте затримку (сортування)
+8. Для дерев: **`18`** — бінарне дерево пошуку, **`19`** — AVL-дерево з ASCII-візуалізацією
+9. Введіть масив вручну або згенеруйте випадковий масив (для сортування/пошуку)
+10. За потреби вмикайте візуалізацію та задайте затримку (сортування)
 
 ## Автор і мета
 
