@@ -11,6 +11,7 @@
 #include "node/mainNode.h"
 #include "graph/mainGraph.h"
 #include "graph_more/mainGraphMore.h"
+#include "stack/mainStack.h"
 #include "MyLib.h"
 
 #include <windows.h>
@@ -51,13 +52,16 @@ int main() {
 
     6. Відкрити меню лабораторних 24 - 26
     <i>--- Розширені графи: топологія, MST</i>
+
+    7. Відкрити меню лабораторних 15 - 17
+    <i>--- Лінійні динамічні структури даних</i>
     
     ---------------------------------------------------------
     0. Вихід
     
 <green>Ваш вибір:
 >> </green>)");
-        choice = ReadIntInRange("", 0, 6);
+        choice = ReadIntInRange("", 0, 7);
         switch(choice) {
             case 1:
                 SortMenu();
@@ -76,6 +80,9 @@ int main() {
                 break;
             case 6:
                 GraphMoreMain();
+                break;
+            case 7:
+                StackMain();
                 break;
             case 0:
                 run = false;
