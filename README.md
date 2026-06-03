@@ -9,6 +9,7 @@
 - Лабораторні роботи №13-14: однозв'язні, двозв'язні та кільцеві списки
 - Лабораторні роботи №15-17: лінійні динамічні структури даних (стек, черги, пріоритетна черга, дек)
 - Лабораторні роботи №18-19: бінарне дерево пошуку та AVL-дерево з автоматичним балансуванням
+- Лабораторна робота №20: Trie (префіксне дерево)
 - Лабораторні роботи №21-23: графи (матриця суміжності, DFS, BFS)
 - Лабораторні роботи №24-26: розширені графи (топологія, MST Краскал/Прім)
 
@@ -29,6 +30,7 @@
 - Динамічні структури даних: стек, черги, пріоритетна черга, дек
 - Бінарне дерево пошуку: вставка, пошук, видалення, обходи, мінімум/максимум, висота, кількість вузлів
 - AVL-дерево: автоматичне балансування при вставці, видалення з балансуванням, обходи, висота, баланс кореня
+- Trie (префіксне дерево): додавання слова, пошук слова, пошук за префіксом, підрахунок слів за префіксом, видалення
 - ASCII-візуалізація дерев у текстовому вигляді для обох модулів
 - Графи: матриця суміжності, DFS, BFS, топологічне сортування та MST (Краскал/Прім)
 - **Автоматичні тести коректності** хеш-таблиці (`RunHashCorrectnessTests`) — перевірка правильності на фіксованих сценаріях із **покроковою візуалізацією** таблиці, статистики та колізій (як у лабораторних меню)
@@ -53,6 +55,8 @@
 - `stack/mainStack.cpp`, `stack/mainStack.h` — меню лабораторних 15-17 (стек, черги, пріоритетна черга, дек)
 - `tree/mainTree.cpp`, `tree/mainTree.h` — меню лабораторних 18-19
 - `tree/tree.cpp`, `tree/tree.h` — реалізація бінарного дерева пошуку та AVL-дерева з ASCII-візуалізацією
+- `trie/mainTrie.cpp`, `trie/mainTrie.h` — меню лабораторної роботи 20
+- `trie/trie.cpp`, `trie/trie.h` — реалізація префіксного дерева Trie
 - `graph/mainGraph.cpp`, `graph/mainGraph.h` — меню лабораторних 21-23
 - `graph/graph.cpp`, `graph/graph.h` — матриця суміжності, довідка, DFS, BFS
 - `graph_more/mainGraphMore.cpp`, `graph_more/mainGraphMore.h` — меню лабораторних 24-26 (топологія, MST)
@@ -67,6 +71,7 @@
 - `NodeMain()` — меню лабораторних 13-14 (списки)
 - `StackMain()` — меню лабораторних 15-17 (стек, черги, пріоритетна черга, дек)
 - `TreeMain()` — меню лабораторних 18-19 (дерева)
+- `TrieMain()` — меню лабораторної роботи 20 (Trie)
 - `GraphMain()` — меню лабораторних 21-23 (графи: введення, довідка, DFS, BFS)
 - `GraphMoreMain()` — меню лабораторних 24-26 (топологічне сортування, MST Краскал/Прім)
 
@@ -111,7 +116,7 @@
 2. Перейдіть до папки проекту
 3. Виконайте:
 ```bash
-cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/mainSearch.cpp search/search.cpp search/test.cpp hash/mainHash.cpp hash/hash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp /Fe:program.exe
+cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/mainSearch.cpp search/search.cpp search/test.cpp hash/mainHash.cpp hash/hash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp trie/mainTrie.cpp trie/trie.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp /Fe:program.exe
 ```
 
 #### MinGW/GCC
@@ -119,7 +124,7 @@ cl /EHsc main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search
 2. Переконайтеся, що `g++` доступний у PATH
 3. Виконайте (рекомендована команда з **C++20** і статичним лінкуванням стандартної бібліотеки MinGW — зручно переносити `program.exe`):
 ```bash
-g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
+g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp trie/mainTrie.cpp trie/trie.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
 ```
 
 ### Linux
@@ -130,7 +135,7 @@ g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp
    - Arch: `sudo pacman -S gcc`
 2. Виконайте:
 ```bash
-g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
+g++ -std=c++20 -o program.exe main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp trie/mainTrie.cpp trie/trie.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp -static-libgcc -static-libstdc++ -static
 ```
 
 ### macOS
@@ -141,7 +146,7 @@ xcode-select --install
 ```
 2. Виконайте:
 ```bash
-g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp
+g++ -std=c++20 -o program main.cpp MyLib.cpp sort/mainSort.cpp sort/sort.cpp sort/test.cpp search/search.cpp search/mainSearch.cpp search/test.cpp hash/hash.cpp hash/mainHash.cpp hash/test.cpp node/mainNode.cpp node/slist.cpp node/dlist.cpp node/clist.cpp stack/mainStack.cpp tree/mainTree.cpp tree/tree.cpp trie/mainTrie.cpp trie/trie.cpp graph/mainGraph.cpp graph/graph.cpp graph_more/mainGraphMore.cpp graph_more/graph_high.cpp
 ```
 
 ### Додаткові інструкції
@@ -170,6 +175,8 @@ program.exe
    - `5` — меню лабораторних 21-23 (графи)
    - `6` — меню лабораторних 24-26 (розширені графи)
    - `7` — меню лабораторних 15-17 (стек, черги, пріоритетна черга, дек)
+   - `8` — меню лабораторних 18-19 (дерева)
+   - `9` — меню лабораторної роботи 20 (Trie)
    - `0` — вихід
 2. Для сортування оберіть алгоритм 1-8 або `9` для тестування всіх алгоритмів (за часом)
 3. Для пошуку оберіть `9` для лінійного, `10` для двійкового, `1` — бонусний стрибковий пошук; пункт `2` — тести за часом

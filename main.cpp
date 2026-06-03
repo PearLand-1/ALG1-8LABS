@@ -13,6 +13,7 @@
 #include "graph_more/mainGraphMore.h"
 #include "stack/mainStack.h"
 #include "tree/mainTree.h"
+#include "trie/mainTrie.h"
 #include "MyLib.h"
 
 #include <windows.h>
@@ -59,13 +60,16 @@ int main() {
 
     8 - Відкрити меню лабораторних 18 - 19
     <i>--- Бінарні дерева та AVL-дерева</i>
+
+    9 - Відкрити меню лабораторної 20
+    <i>--- Trie (префіксне дерево)</i>
     
     ---------------------------------------------------------
     0. Вихід
     
 <green>Ваш вибір:
 >> </green>)");
-        choice = ReadIntInRange("", 0, 8);
+        choice = ReadIntInRange("", 0, 9);
         switch(choice) {
             case 1:
                 SortMenu();
@@ -90,6 +94,9 @@ int main() {
                 break;
             case 8:
                 TreeMain();
+                break;
+            case 9:
+                TrieMain();
                 break;
             case 0:
                 run = false;
